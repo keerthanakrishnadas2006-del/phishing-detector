@@ -11,6 +11,38 @@ import requests
 from bs4 import BeautifulSoup
 import joblib
 import requests
+
+# Page setup
+st.set_page_config(
+    page_title="Phishing Detector",
+    page_icon="🔒",
+    layout="centered"
+)
+
+# Header
+st.markdown("<h1 style='text-align: center; color: #2E86C1;'>🔒 Phishing Detector</h1>", unsafe_allow_html=True)
+st.write("Check if a website is legitimate or phishing. Enter a URL below and get instant results.")
+
+# Input box
+url = st.text_input("🌐 Enter a website URL:")
+
+# Button
+if st.button("Check Website"):
+    if url:
+        # Load model
+        model = joblib.load("phishing_model.pkl")
+        # Extract features (your function)
+        sample = extract_features(url)
+        result = model.predict(sample)[0]
+
+        # Result card
+        if result == 1:
+            st.success("✅ This website looks legitimate.")
+        else:
+            st.error("🚨 Warning: This website is likely phishing!")
+    else:
+        st.warning("Please enter a URL to check.")
+
 def check_google_index(domain):
     try:
         query = f"https://www.google.com/search?q=site:{domain}"
