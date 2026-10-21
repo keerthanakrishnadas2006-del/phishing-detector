@@ -1,0 +1,8 @@
+streamlit
+scikit-learn
+pandas
+python-whois
+dnspython
+requests
+beautifulsoup4
+joblib
